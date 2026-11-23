@@ -2028,5 +2028,31 @@ SYNC.onChange(k=>{try{window.__onRemote(k)}catch(e){console.error(e)}});
 };
 SYNC.start(window.__APP);
 </script>
+   <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+  import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword,
+           onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+
+  const firebaseConfig = {
+  apiKey: "AIzaSyBJgB6qHOMMu1GF1nP3HtHhz_XItEbMSdc",
+  authDomain: "mit-school.firebaseapp.com",
+  projectId: "mit-school",
+  storageBucket: "mit-school.firebasestorage.app",
+  messagingSenderId: "305965414659",
+  appId: "1:305965414659:web:feecbcdbafa75b3bd2d136",
+  measurementId: "G-EFRM0GHV66"
+  };
+
+  const app  = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  window.login    = (email, pass) => signInWithEmailAndPassword(auth, email, pass);
+  window.register = (email, pass) => createUserWithEmailAndPassword(auth, email, pass);
+  window.logout   = () => signOut(auth);
+
+  onAuthStateChanged(auth, user => {
+    console.log(user ? "Нэвтэрсэн: " + user.email : "Нэвтрээгүй");
+  });
+</script>
 </body>
 </html>
